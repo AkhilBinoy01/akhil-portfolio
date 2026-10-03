@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Akhil — Portfolio & Cinematic Scroll</title>
+  <meta name="description" content="Cinematic video editing and motion design portfolio with smooth scroll interactive canvas animation.">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Full-screen sticky canvas for the smooth zoom animation -->
+  <div id="canvas-container">
+    <canvas id="sequence-canvas"></canvas>
+    <div class="canvas-scrim"></div>
+  </div>
+
+  <!-- Minimal elegant loading progress (fades out completely upon load) -->
+  <div id="loader" class="loader">
+    <div class="loader-track">
+      <div id="loader-bar" class="loader-bar"></div>
+    </div>
+    <div id="loader-text" class="loader-text">0%</div>
+  </div>
+
+  <!-- Transparent Scrollable Sections Layer -->
+  <main class="portfolio-content">
+
+    <!-- SECTION 1: HERO -->
+    <section id="hero" class="section hero-section">
+      <div class="hero-top-bar">
+        <div class="vertical-tag">PORTFOLIO / 2024</div>
+        <div class="stats-group">
+          <div class="stat-item">
+            <span class="stat-number">+200</span>
+            <span class="stat-label">Project completed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">+50</span>
+            <span class="stat-label">Happy clients</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <h1 class="hero-title">Hello</h1>
+        <p class="hero-subtitle">— Akhil is a design wizard</p>
+      </div>
+
+      <div class="hero-footer">
+        <div class="scroll-indicator">
+          <span>Scroll down</span>
+          <svg class="scroll-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: BIO & SKILLS & EXPERIENCE -->
+    <section id="about" class="section about-section">
+      <div class="section-container">
+        <h2 class="bold-title">HELLO</h2>
+        
+        <div class="about-grid">
+          <!-- Left Column: Bio & Education -->
+          <div class="about-left">
+            <div class="bio-block">
+              <h3 class="bio-greeting">Hi, I'm Akhil</h3>
+              <p class="bio-text">
+                I'm a passionate Video Editor &amp; Motion Designer dedicated to crafting high-impact visual stories. Specializing in commercial video editing, dynamic reels, 3D motion graphics, and creative brand visuals with a strong eye for timing, rhythm, and aesthetics.
+              </p>
+            </div>
+
+            <div class="education-block">
+              <h4 class="sub-heading">EDUCATION</h4>
+              <p class="edu-degree">BACHELOR OF DESIGN / MULTIMEDIA &amp; ANIMATION</p>
+              <p class="edu-dates">GOVERNMENT INSTITUTE OF FINE ARTS &bull; 2020 - 2024</p>
+            </div>
+          </div>
+
+          <!-- Right Column: Skills & Experience -->
+          <div class="about-right">
+            <!-- Software Skills -->
+            <div class="skills-block">
+              <h4 class="sub-heading">SKILLS</h4>
+              <div class="software-grid">
+                <!-- Premiere Pro -->
+                <div class="software-icon icon-pr" title="Adobe Premiere Pro">
+                  <span>Pr</span>
+                </div>
+                <!-- After Effects -->
+                <div class="software-icon icon-ae" title="Adobe After Effects">
+                  <span>Ae</span>
+                </div>
+                <!-- Photoshop -->
+                <div class="software-icon icon-ps" title="Adobe Photoshop">
+                  <span>Ps</span>
+                </div>
+                <!-- Illustrator -->
+                <div class="software-icon icon-ai" title="Adobe Illustrator">
+                  <span>Ai</span>
+                </div>
+                <!-- Audition -->
+                <div class="software-icon icon-au" title="Adobe Audition">
+                  <span>Au</span>
+                </div>
+                <!-- DaVinci Resolve -->
+                <div class="software-icon icon-davinci" title="DaVinci Resolve">
+                  <svg viewBox="0 0 100 100" class="davinci-svg">
+                    <circle cx="50" cy="50" r="48" fill="#121318"/>
+                    <path d="M50 15 L62 40 L38 40 Z" fill="#ff4d4d"/>
+                    <path d="M85 50 L60 62 L60 38 Z" fill="#ff9900"/>
+                    <path d="M50 85 L38 60 L62 60 Z" fill="#33cc33"/>
+                    <path d="M15 50 L40 38 L40 62 Z" fill="#3399ff"/>
+                    <circle cx="50" cy="50" r="10" fill="#121318"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Experience -->
+            <div class="experience-block">
+              <h4 class="sub-heading">EXPERIENCE</h4>
+              <p class="exp-dates">2021 - PRESENT</p>
+              <p class="exp-role">FREELANCE VIDEO EDITOR &amp; MOTION DESIGNER</p>
+              <p class="exp-desc">
+                Delivering high-quality commercial videos, social media reels, motion graphics, and brand content with a strong focus on storytelling, rhythm, sound design, and audience engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CONTENTS / SERVICES -->
+    <section id="contents" class="section contents-section">
+      <div class="section-container">
+        <h2 class="contents-title">CONTENTS</h2>
+        
+        <div class="contents-nav-grid">
+          <a href="#reels" class="content-pill">
+            <span class="pill-number">1.</span>
+            <span class="pill-label">PRESENTATION VIDEOS</span>
+          </a>
+          <a href="#motion-graphics" class="content-pill">
+            <span class="pill-number">2.</span>
+            <span class="pill-label">MOTION GRAPHICS</span>
+          </a>
+          <a href="#reels" class="content-pill">
+            <span class="pill-number">3.</span>
+            <span class="pill-label">SOCIAL MEDIA REELS</span>
+          </a>
+          <a href="#graphic-design" class="content-pill">
+            <span class="pill-number">4.</span>
+            <span class="pill-label">GRAPHIC DESIGNING</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SHOWCASE 1 - SOCIAL MEDIA REELS -->
+    <section id="reels" class="section showcase-section">
+      <div class="section-container">
+        <div class="section-badge">01 &bull; PORTFOLIO SHOWCASE</div>
+        <h2 class="showcase-heading">Social Media Reels</h2>
+        <p class="showcase-sub">High-retention vertical edits engineered for virality, pacing, and visual storytelling.</p>
+
+        <div class="cards-grid reel-cards">
+          <!-- Card 1 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/reel_finance.jpg" alt="Viral Finance & Wealth Reel" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">Finance &bull; 0:35</span>
+            </div>
+            <div class="card-info">
+              <h3>Wealth Creation Explainer</h3>
+              <p>Dynamic 3D currency simulation, kinetic subtitles &amp; SFX.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/reel_podcast.jpg" alt="Night Chat Studio Podcast" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">Podcast &bull; 0:45</span>
+            </div>
+            <div class="card-info">
+              <h3>Night Chat Podcast Hook</h3>
+              <p>Atmospheric dual-tone neon grade &amp; multi-cam rhythm cutting.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/reel_vfx.jpg" alt="City Vibes Neon VFX Street Walk" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">VFX &bull; 0:30</span>
+            </div>
+            <div class="card-info">
+              <h3>City Vibes Scribble VFX</h3>
+              <p>Hand-animated glowing cyan rotoscope &amp; spatial motion lines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: SHOWCASE 2 - MOTION GRAPHICS & COMMERCIALS -->
+    <section id="motion-graphics" class="section showcase-section">
+      <div class="section-container">
+        <div class="section-badge">02 &bull; MOTION &amp; VFX</div>
+        <h2 class="showcase-heading">Motion Graphics &amp; Commercials</h2>
+        <p class="showcase-sub">3D matchmoving, high-speed food cinematography, and blockbuster action compositing.</p>
+
+        <div class="cards-grid commercial-cards">
+          <!-- Card 1 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/mg_landscape.jpg" alt="CLOUZ 3D Landscape Tracking" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">3D Tracking</span>
+            </div>
+            <div class="card-info">
+              <h3>CLOUZ Brand Landmark</h3>
+              <p>Camera planar tracking, 3D extruded typography &amp; shadow passes.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/mg_food.jpg" alt="Sizzling Wok Food Commercial" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">Commercial</span>
+            </div>
+            <div class="card-info">
+              <h3>Wok Sizzle Commercial</h3>
+              <p>High-speed macro capture, appetite-enhancing color grade &amp; ASMR audio.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="showcase-card">
+            <div class="card-media">
+              <img src="assets/mg_car.jpg" alt="Supercar Drift Explosion" loading="lazy">
+              <div class="card-play-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="tag-pill">VFX Compositing</span>
+            </div>
+            <div class="card-info">
+              <h3>Supercar Cinematic Drift</h3>
+              <p>Volumetric pyrotechnic smoke simulation, sparks &amp; motion blur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: SHOWCASE 3 - GRAPHIC DESIGNING & POSTERS -->
+    <section id="graphic-design" class="section showcase-section">
+      <div class="section-container">
+        <div class="section-badge">03 &bull; GRAPHIC DESIGN</div>
+        <h2 class="showcase-heading">Graphic Designing &amp; Posters</h2>
+        <p class="showcase-sub">Cultural festival keys, modern event branding, and celebratory typography artwork.</p>
+
+        <div class="cards-grid poster-cards">
+          <!-- Poster 1: Nihon Culture Club Workshop -->
+          <div class="poster-card poster-nihon">
+            <div class="poster-inner">
+              <div class="poster-header-badge">CULTURE &amp; TRADITION</div>
+              <div class="nihon-art-frame">
+                <div class="nihon-sun"></div>
+                <div class="nihon-wave"></div>
+                <div class="nihon-torii">⛩️</div>
+              </div>
+              <h3 class="poster-main-title">NIHON CULTURE CLUB</h3>
+              <h4 class="poster-sub-title">WORKSHOP</h4>
+              <div class="poster-details">
+                <span>OCTOBER 15 - 18</span>
+                <span class="bullet">&bull;</span>
+                <span>TOKYO HALL</span>
+              </div>
+              <div class="poster-strip">ORIGAMI &bull; CALLIGRAPHY &bull; TEA CEREMONY</div>
+            </div>
+          </div>
+
+          <!-- Poster 2: Obon Festival -->
+          <div class="poster-card poster-obon">
+            <div class="poster-inner">
+              <div class="obon-photo-overlay">
+                <div class="obon-badge">SUMMER CELEBRATION</div>
+                <div class="obon-crowd-silhouette">
+                  <div class="lantern l1">🏮</div>
+                  <div class="lantern l2">🏮</div>
+                  <div class="lantern l3">🏮</div>
+                </div>
+              </div>
+              <div class="obon-content-box">
+                <h3 class="obon-title">OBON</h3>
+                <h4 class="obon-sub">FESTIVAL</h4>
+                <div class="obon-tagline">HONORING OUR ROOTS THROUGH DANCE &amp; MUSIC</div>
+                <div class="obon-meta">BON ODORI DANCE &bull; DRUM PERFORMANCE</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Poster 3: Happy Diwali -->
+          <div class="poster-card poster-diwali">
+            <div class="poster-inner">
+              <div class="diwali-mandala"></div>
+              <div class="diwali-diya-container">
+                <div class="diya-flame"></div>
+                <div class="diya-bowl"></div>
+              </div>
+              <h3 class="diwali-title">Happy</h3>
+              <h4 class="diwali-sub">Diwali</h4>
+              <p class="diwali-wish">May the Divine Light bring Peace, Prosperity, and Eternal Joy to Your Home.</p>
+              <div class="diwali-stars">✦ &nbsp; ✦ &nbsp; ✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: THANK YOU & CONTACT -->
+    <section id="contact" class="section contact-section">
+      <div class="section-container contact-center">
+        <h2 class="thankyou-title">
+          THANK <span class="accent-text">YOU</span>
+        </h2>
+        <p class="thankyou-sub">
+          Thank you for viewing my work. I look forward to creating more impactful visuals and new creative opportunities.
+        </p>
+
+        <!-- Reference-style Floating Contact Pill Card -->
+        <div class="contact-pill-card">
+          <div class="contact-col contact-col-name">
+            <h3 class="author-name">Akhil / Rishant Yadav</h3>
+            <p class="author-role">Video Editor &amp; Motion Designer</p>
+          </div>
+          <div class="contact-divider"></div>
+          <div class="contact-col contact-col-phone">
+            <span class="contact-label">Contact</span>
+            <a href="tel:+919211278022" class="contact-value">+91 9211278022</a>
+          </div>
+          <div class="contact-divider"></div>
+          <div class="contact-col contact-col-email">
+            <span class="contact-label">Email</span>
+            <a href="mailto:ram249764@gmail.com" class="contact-value">ram249764@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
