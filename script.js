@@ -1,12 +1,12 @@
 /**
  * Akhil Portfolio - Cinematic Smooth Scroll Engine
- * Seamlessly drives 224 frames of zoom animation synchronized with page content
+ * Seamlessly drives 147 frames of zoom animation synchronized with page content
  */
 
 (function () {
   'use strict';
 
-  const TOTAL_FRAMES = 224;
+  const TOTAL_FRAMES = 147;
   const FRAME_PATH = (index) => `PNG/ezgif-frame-${String(index).padStart(3, '0')}.png`;
 
   // DOM Elements
@@ -109,6 +109,12 @@
       resizeCanvas();
       renderFrame(0);
       updateProgress();
+      if (loadedCount >= TOTAL_FRAMES) onAllLoaded();
+    };
+    firstImg.onerror = () => {
+      loadedCount++;
+      updateProgress();
+      if (loadedCount >= TOTAL_FRAMES) onAllLoaded();
     };
 
     // 2. Load remaining frames with concurrent batching
@@ -146,8 +152,15 @@
 
       img.onload = onDone;
       img.onerror = () => {
+        // Count failed frames as done so the loader can never hang
+        loadedCount++;
         activeRequests--;
-        processQueue();
+        updateProgress();
+        if (loadedCount >= TOTAL_FRAMES) {
+          onAllLoaded();
+        } else {
+          processQueue();
+        }
       };
     }
 
@@ -228,6 +241,130 @@
       }
     });
   });
+
+  // ---- Showcase card videos ----
+  // Hover plays (desktop), click/tap toggles, only one plays at a time, pauses when scrolled away.
+  (function initCardVideos() {
+    const videos = document.querySelectorAll('.card-video');
+    if (!videos.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    function play(v) {
+      videos.forEach((o) => { if (o !== v) pause(o); });
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+      v.parentElement.classList.add('is-playing');
+    }
+    function pause(v) {
+      v.pause();
+      v.parentElement.classList.remove('is-playing');
+    }
+
+    // Sound: videos start muted (browsers block unmuted autoplay).
+    // Clicking the speaker button unmutes all cards; the choice is remembered.
+    let soundOn = false;
+    const ICON_OFF = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 8.5l5 7m0-7l-5 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+    const ICON_ON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+    const soundBtns = [];
+
+    function applySound() {
+      videos.forEach((v) => { v.muted = !soundOn; });
+      soundBtns.forEach((b) => {
+        b.innerHTML = soundOn ? ICON_ON : ICON_OFF;
+        b.setAttribute('aria-label', soundOn ? 'Mute video' : 'Unmute video');
+        b.classList.toggle('is-on', soundOn);
+      });
+    }
+
+    videos.forEach((v) => {
+      const media = v.parentElement;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'card-sound-btn';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        soundOn = !soundOn;
+        applySound();
+        if (soundOn && v.paused) play(v);
+      });
+      media.appendChild(btn);
+      soundBtns.push(btn);
+    });
+    applySound();
+
+    videos.forEach((v) => {
+      const media = v.parentElement;
+      v.addEventListener('click', () => (v.paused ? play(v) : pause(v)));
+      // Wide (YouTube / album) videos: click to play, no hover autoplay
+      if (canHover && !media.classList.contains('card-media-wide')) {
+        media.addEventListener('mouseenter', () => play(v));
+        media.addEventListener('mouseleave', () => pause(v));
+      }
+    });
+
+
+    // Progress bar (current time, seek slider, duration) for 16:9 videos
+    function fmt(t) {
+      if (!isFinite(t)) return '0:00';
+      const m = Math.floor(t / 60), s = Math.floor(t % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+    videos.forEach((v) => {
+      const media = v.parentElement;
+      if (!media.classList.contains('card-media-wide')) return;
+      const bar = document.createElement('div');
+      bar.className = 'video-controls';
+      bar.innerHTML = '<span class="vc-time vc-current">0:00</span>' +
+        '<input class="vc-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Video progress">' +
+        '<span class="vc-time vc-duration">0:00</span>';
+      media.appendChild(bar);
+      const seek = bar.querySelector('.vc-seek');
+      const cur = bar.querySelector('.vc-current');
+      const dur = bar.querySelector('.vc-duration');
+      let dragging = false;
+
+      function paint(ratio) {
+        seek.value = Math.round(ratio * 1000);
+        seek.style.setProperty('--p', (ratio * 100) + '%');
+      }
+      function setDuration() { dur.textContent = fmt(v.duration); }
+      v.addEventListener('loadedmetadata', setDuration);
+      v.addEventListener('durationchange', setDuration);
+      if (v.readyState >= 1) setDuration();
+      v.addEventListener('timeupdate', () => {
+        cur.textContent = fmt(v.currentTime);
+        if (!dragging && v.duration) paint(v.currentTime / v.duration);
+      });
+      seek.addEventListener('pointerdown', () => { dragging = true; });
+      seek.addEventListener('pointerup', () => { dragging = false; });
+      seek.addEventListener('input', () => {
+        const ratio = seek.value / 1000;
+        seek.style.setProperty('--p', (ratio * 100) + '%');
+        if (v.duration) {
+          v.currentTime = ratio * v.duration;
+          cur.textContent = fmt(v.currentTime);
+        }
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (!e.isIntersecting) pause(e.target); });
+      }, { threshold: 0.25 });
+      videos.forEach((v) => io.observe(v));
+    }
+  })();
+
+  // ---- Software proficiency bars: fill when scrolled into view ----
+  (function initProficiency() {
+    const grid = document.querySelector('.proficiency-grid');
+    if (!grid) return;
+    if (!('IntersectionObserver' in window)) { grid.classList.add('in-view'); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { grid.classList.add('in-view'); io.disconnect(); } });
+    }, { threshold: 0.3 });
+    io.observe(grid);
+  })();
 
   // Initialization
   function init() {
